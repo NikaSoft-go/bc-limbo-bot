@@ -1,0 +1,737 @@
+:root {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
+  --warning-color: #f59e0b;
+  --text-color: #f8fafc;
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --border-color: #334155;
+  --highlight-bg: #3730a3; /* New highlight background color */
+  --hover-bg: #1e293b; /* Darker hover background color */
+  --tooltip-bg: rgba(30, 41, 59, 0.95); /* Tooltip background */
+  --high-color: rgb(215, 237, 71);
+}
+
+body {
+  width: 450px;
+  height: 600px; /* Increased height from 650px to 750px to prevent overlapping */
+  padding: 0;
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Further reduced gap to save vertical space */
+  padding: 8px; /* Reduced padding to save space */
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-size: 18px;
+  margin: 0;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+h3 {
+  margin: 0 0 2px 0; /* Reduced margin */
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: var(--border-color);
+}
+
+.status-badge.active {
+  background-color: var(--success-color);
+}
+
+.status-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+  color: rgba(248, 250, 252, 0.7);
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primary-button {
+  background-color: var(--primary-color);
+  flex: 1;
+}
+
+.primary-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.primary-button.active {
+  background-color: var(--danger-color);
+}
+
+.secondary-button {
+  background-color: var(--card-bg);
+  flex: 1;
+}
+
+.secondary-button:hover {
+  background-color: var(--border-color);
+}
+
+.bet-controls {
+  background-color: var(--card-bg);
+  padding: 6px; /* Further reduced padding */
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px; /* Further reduced margin */
+}
+
+.input-group label {
+  flex: 1;
+  font-size: 13px;
+}
+
+.input-with-buttons {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 3px 6px; /* Reduced padding */
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-color);
+  font-size: 13px;
+}
+
+.input-buttons {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.input-button {
+  padding: 0;
+  width: 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--border-color);
+  border-radius: 0;
+  font-size: 12px;
+  margin-left: 1px;
+}
+
+.input-button:first-child {
+  border-radius: 0 0 0 4px;
+}
+
+.input-button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.balance-display {
+  flex: 1;
+  padding: 4px 6px; /* Reduced padding */
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--success-color);
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+  transition: color 0.3s;
+  height: 18px; /* Match the height of other inputs */
+  line-height: 18px; /* Center text vertically */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.balance-loading {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.balance-loaded {
+  color: var(--success-color);
+}
+
+.balance-error {
+  color: var(--danger-color);
+}
+
+/* Different colors for Start/Stop Timer buttons */
+.start-timer {
+  background-color: var(--success-color);
+  margin-top: 2px;
+}
+
+.start-timer:hover {
+  background-color: #0d9488;
+}
+
+.bet-timer-active {
+  background-color: var(--danger-color);
+}
+
+.bet-timer-active:hover {
+  background-color: #dc2626;
+}
+
+.bet-button {
+  width: 100%;
+}
+
+.stats {
+  background-color: var(--card-bg);
+  padding: 8px; /* Increased from 6px to 8px */
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  flex: 1; /* Allow this to take remaining space */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent internal scrolling */
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px; /* Reduced margin */
+}
+
+.stats-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.icon-button {
+  padding: 4px;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button:hover {
+  background-color: var(--border-color);
+}
+
+.icon-button.danger:hover {
+  background-color: var(--danger-color);
+}
+
+/* New statistics summary styles */
+.stats-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px; /* Reduced margin */
+  padding: 4px; /* Reduced padding */
+  background-color: var(--bg-color);
+  border-radius: 6px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.stat-label {
+  font-weight: 600;
+}
+
+.stat-label.red {
+  color: var(--warning-color);
+}
+
+.stat-label.green {
+  color: var(--success-color);
+}
+
+.stat-label.high {
+  color: var(--high-color);
+}
+
+.stat-value {
+  font-weight: 600;
+}
+
+.stat-percent {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+/* Updated grid layout for multiplier items - exactly 5 rows of 7 columns */
+.multiplier-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columns */
+  grid-template-rows: repeat(5, 23px);
+  gap: 4px;
+  min-height: 135px;
+  max-height: 135px;
+  overflow: visible; /* No scrolling needed */
+  padding: 2px;
+}
+
+/* Adjust the multiplier item height to fit exactly in the grid */
+.multiplier-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px; /* Reduced padding */
+  background-color: var(--bg-color);
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 11px; /* Smaller font size */
+  height: 21px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+/* More subtle hover effect for multiplier items */
+.multiplier-item:hover {
+  background-color: var(--hover-bg);
+  border: 1px solid var(--border-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Improved tooltip for date/time - styled like a comment bubble */
+.multiplier-item .tooltip {
+  visibility: hidden;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--tooltip-bg);
+  color: var(--text-color);
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+  pointer-events: none;
+  margin-bottom: 5px;
+  border: 1px solid var(--border-color);
+  min-width: 120px;
+}
+
+.multiplier-item:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Improved arrow for the tooltip to look like a speech bubble */
+.multiplier-item .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: var(--tooltip-bg) transparent transparent transparent;
+}
+
+/* Add a border to the arrow */
+.multiplier-item .tooltip::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -9px;
+  border-width: 9px;
+  border-style: solid;
+  border-color: var(--border-color) transparent transparent transparent;
+  z-index: -1;
+}
+
+.multiplier-value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Updated color scheme as requested */
+.multiplier-value.high {
+  color: var(--high-color); /* Yellow/orange for high values (>=10x) */
+}
+
+.multiplier-value.medium {
+  color: var(--success-color); /* Green for medium values (2x-10x) */
+}
+
+.multiplier-value.low {
+  color: var(--warning-color); /* Red for low values (<2x) */
+}
+
+.start-button {
+  background-color: var(--success-color);
+}
+
+.stop-button {
+  background-color: var(--danger-color);
+}
+
+.no-data-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px;
+  color: rgba(248, 250, 252, 0.7);
+  font-size: 14px;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+/* Pagination controls */
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  padding: 3px 0;
+  background-color: var(--card-bg); /* Added background color for better visibility */
+  border-radius: 4px; /* Added rounded corners */
+  border: 1px solid var(--border-color); /* Added border */
+}
+
+.pagination-button {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  margin: 0 4px; /* Added margin */
+}
+
+.pagination-button:hover {
+  background-color: var(--border-color);
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 13px; /* Increased from 12px to 13px */
+  color: var(--text-color);
+  opacity: 0.9; /* Increased from 0.8 to 0.9 for better visibility */
+  font-weight: 500; /* Added font weight for better visibility */
+}
+
+/* Latest limbo value styling - updated to use background color instead of border */
+.multiplier-item.latest {
+  background-color: var(--highlight-bg);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+  z-index: 1;
+}
+
+.multiplier-item.latest .multiplier-value {
+  font-weight: 700;
+}
+
+/* Modal styles */
+.limbo-detail-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  width: 250px;
+  z-index: 1000;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  animation: fadeIn 0.2s ease-out;
+  color: var(--text-color);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  z-index: 10;
+}
+
+.modal-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.modal-header {
+  padding: 12px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.modal-header.low {
+  background-color: var(--warning-color);
+}
+
+.modal-header.medium {
+  background-color: var(--success-color);
+}
+
+.modal-header.high {
+  background-color: var(--high-color);
+}
+
+.modal-multiplier {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 12px;
+  background-color: var(--card-bg);
+}
+
+.modal-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.modal-row:last-child {
+  margin-bottom: 0;
+}
+
+.modal-label {
+  color: rgba(248, 250, 252, 0.7);
+  font-weight: 500;
+}
+
+.modal-value {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Enhanced streak status styling */
+.streak-highlight {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin: 0 2px;
+  animation: pulse 1.5s infinite;
+}
+
+.streak-amount {
+  background-color: rgba(99, 102, 241, 0.2);
+  border: 1px solid var(--primary-color);
+  color: white;
+}
+
+.streak-count {
+  position: relative;
+  border: 1px solid transparent;
+}
+
+/* Different colors based on streak count */
+.streak-count-1 {
+  background-color: rgba(16, 185, 129, 0.2);
+  border-color: var(--success-color);
+  color: var(--success-color);
+}
+
+.streak-count-2 {
+  background-color: rgba(245, 158, 11, 0.2);
+  border-color: var(--warning-color);
+  color: var(--warning-color);
+}
+
+.streak-count-3,
+.streak-count-4 {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+  animation: danger-pulse 1.2s infinite;
+}
+
+.streak-count-5,
+.streak-count-high {
+  background-color: rgba(239, 68, 68, 0.3);
+  border-color: var(--danger-color);
+  color: white;
+  animation: danger-pulse 0.8s infinite;
+  text-shadow: 0 0 5px rgba(239, 68, 68, 0.7);
+}
+
+.streak-highlight.blink {
+  animation: blink 1s infinite;
+}
+
+.double-time {
+  background-color: rgba(215, 237, 71, 0.2);
+  border: 1px solid var(--high-color);
+  color: var(--high-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-left: 4px;
+  animation: highlight-pulse 1.5s infinite;
+}
+
+/* Pulse animation for streak highlight */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(99, 102, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+}
+
+/* Danger pulse animation for high streaks */
+@keyframes danger-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+/* Highlight pulse animation for Double Time */
+@keyframes highlight-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(215, 237, 71, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(215, 237, 71, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(215, 237, 71, 0);
+  }
+}
+
+/* Blink animation for critical streaks */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>BCGame Limbo Tracker</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="modal.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>BCGame Limbo Tracker</h1>
+      <div class="status-badge" id="statusBadge">Inactive</div>
+    </div>
+    
+    <div class="status-info">
+      <span id="statusText">Status: Checking...</span>
+      <span id="lastUpdated">Last updated: Never</span>
+    </div>
+    
+    <div class="controls">
+      <button id="refreshPage" class="secondary-button">Refresh Page</button>
+      <button id="reloadScript" class="secondary-button">Reload Script</button>
+    </div>
+    
+    <div class="bet-controls">
+      <h3>Bet Strategy</h3>
+      <div class="input-group">
+        <label for="basicAmount">Basic Amount:</label>
+        <div class="input-with-buttons">
+          <input type="number" id="basicAmount" min="0.01" step="0.01" value="1.00">
+          <div class="input-buttons">
+            <button id="halfBasic" class="input-button" title="Half amount">½</button>
+            <button id="doubleBasic" class="input-button" title="Double amount">2×</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="autoCashoutAt">Cash Out At:</label>
+        <div class="input-with-buttons">
+          <input type="number" id="autoCashoutAt" min="1.01" step="0.01" value="2.00">
+          <div class="input-buttons">
+            <button id="decreaseAutoCashout" class="input-button" title="Decrease cashout">−</button>
+            <button id="increaseAutoCashout" class="input-button" title="Increase cashout">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="maxLimit">Max Limit:</label>
+        <div class="input-with-buttons">
+          <input type="number" id="maxLimit" min="0" step="1" value="0">
+          <div class="input-buttons">
+            <button id="decreaseMaxLimit" class="input-button" title="Decrease max limit">−</button>
+            <button id="increaseMaxLimit" class="input-button" title="Increase max limit">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="minLimit">Min Limit:</label>
+        <div class="input-with-buttons">
+          <input type="number" id="minLimit" min="0" step="1" value="0">
+          <div class="input-buttons">
+            <button id="decreaseMinLimit" class="input-button" title="Decrease min limit">−</button>
+            <button id="increaseMinLimit" class="input-button" title="Increase min limit">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="currentBalance">Current Balance:</label>
+        <div class="input-with-buttons">
+          <div id="currentBalance" class="balance-display">Loading...</div>
+        </div>
+      </div>
+      <button id="startTimer" class="bet-button start-timer">Start Timer</button>
+    </div>
+    
+    <!-- Original Place Bet section - disabled for now -->
+    <!-- 
+    <div class="bet-controls">
+      <h3>Place Bet</h3>
+      <div class="input-group">
+        <label for="betAmount">Bet Amount:</label>
+        <div class="input-with-buttons">
+          <input type="number" id="betAmount" min="0.01" step="0.01" value="1.00">
+          <div class="input-buttons">
+            <button id="halfBet" class="input-button" title="Half bet">½</button>
+            <button id="doubleBet" class="input-button" title="Double bet">2×</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="cashoutAt">Auto Cashout At:</label>
+        <div class="input-with-buttons">
+          <input type="number" id="cashoutAt" min="1.01" step="0.01" value="2.00">
+          <div class="input-buttons">
+            <button id="decreaseCashout" class="input-button" title="Decrease cashout">−</button>
+            <button id="increaseCashout" class="input-button" title="Increase cashout">+</button>
+          </div>
+        </div>
+      </div>
+      <button id="placeBet" class="bet-button">Place Bet</button>
+    </div>
+    -->
+    
+    <div class="stats">
+      <div class="stats-header">
+        <h3>Limbo Values</h3>
+        <div class="stats-actions">
+          <button id="downloadCSV" class="icon-button" title="Download CSV">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </button>
+          <button id="downloadData" class="icon-button" title="Download JSON">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </button>
+          <button id="clearData" class="icon-button danger" title="Clear Data">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- New statistics summary -->
+      <div class="stats-summary">
+        <div class="stat-item">
+          <span class="stat-label">Total:</span>
+          <span id="totalCount" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label red">Red:</span>
+          <span id="lowCount" class="stat-value">0</span>
+          <span id="lowPercent" class="stat-percent">(0%)</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label green">Green:</span>
+          <span id="mediumCount" class="stat-value">0</span>
+          <span id="mediumPercent" class="stat-percent">(0%)</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label high">Moon:</span>
+          <span id="highCount" class="stat-value">0</span>
+          <span id="highPercent" class="stat-percent">(0%)</span>
+        </div>
+      </div>
+      
+      <div id="multiplierList" class="multiplier-grid"></div>
+      <div class="pagination-controls">
+        <button id="prevPage" class="pagination-button">&lt; Prev</button>
+        <span id="pageInfo" class="page-info">Page 1/1</span>
+        <button id="nextPage" class="pagination-button">Next &gt;</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal backdrop -->
+  <div id="modal-backdrop" class="modal-backdrop" style="display: none;"></div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
